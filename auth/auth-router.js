@@ -2,6 +2,8 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const Users = require('../users/user-model.js');
 const uuid = require('uuid');
+const activeSessions = [];
+
 
 router.post('/register', (req, res) => {
     const {username, password} = req.body;
@@ -16,6 +18,7 @@ router.post('/register', (req, res) => {
     Users.add(user)
     .then(saved => {
         res.status(201).jason(saved);
+
     })
     .catch(error => {
         res.status(500).json(error);
